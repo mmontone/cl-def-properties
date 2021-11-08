@@ -546,5 +546,3 @@ PACKAGE: the package to use to read the docstring symbols.
                      (location-pathname location)
                      system-source-directory))
             collect package)))
-
-(provide :def-properties)
