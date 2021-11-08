@@ -480,7 +480,15 @@ PACKAGE: the package to use to read the docstring symbols.
                            (list :var word symbol))
                           (t ;; I don't know what this is
                            word))))
-                     ((aand
+		     ((aand
+                       (find-symbol word package)
+                       (special-operator-p it))
+                      (list :special-operator word (find-symbol word package)))
+		     ((aand
+		       (find-symbol word package)
+		       (macro-function it))
+		      (list :macro word (find-symbol word package)))
+		     ((aand
                        (find-symbol word package)
                        (fboundp it))
                       (list :fn word (find-symbol word package)))
