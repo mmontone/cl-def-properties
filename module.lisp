@@ -1,3 +1,4 @@
+(require :asdf)
 (require :alexandria)
 (require :swank)
 (require :closer-mop)
