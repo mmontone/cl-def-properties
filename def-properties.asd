@@ -9,6 +9,5 @@ NOTE: This contains some code taken from DOCBROWSER library: https://github.com/
   :license  "MIT"
   :version "0.0.1"
   :serial t
-  :components ((:file "package")
-               (:file "def-properties"))
+  :components ((:file "def-properties"))
   :depends-on (:alexandria :swank :closer-mop))
