@@ -59,24 +59,31 @@
   (and (find-class symbol nil)
        (typep (find-class symbol nil) 'structure-class)))
 
-(defun symbol-properties (symbol &optional shallow)
+;; TODO: use keyword args instead of optional
+(defun symbol-properties (symbol &optional shallow type)
   "Collects properties about a symbol.
 If TYPE is specified, then SYMBOL is treated as the given TYPE (variable, function, package, etc).
 If SHALLOW is T, then only fundamental properties are collected.
 Returns a list of alists of properties, one alist for each type of definition that SYMBOL is bound to."
   (let (properties)
-    (when (symbol-function-p symbol)
+    (when (and (or (not type) (eql type 'cl:function))
+	       (symbol-function-p symbol))
       (push (function-properties symbol shallow) properties))
-    (when (symbol-generic-function-p symbol)
+    (when (and (or (not type) (eql type 'cl:generic-function))
+	       (symbol-generic-function-p symbol))
       (push (function-properties symbol shallow) properties))
-    (when (symbol-macro-p symbol)
+    (when (and (or (not type) (eql type 'cl:macro-function))
+	       (symbol-macro-p symbol))
       (push (function-properties symbol shallow) properties))
-    (when (symbol-variable-p symbol)
+    (when (and (or (not type) (eql type 'cl:variable))
+	       (symbol-variable-p symbol))
       (push (variable-properties symbol shallow) properties))
-    (when (symbol-class-p symbol)
+    (when (and (or (not type) (eql type 'cl:class))
+	       (symbol-class-p symbol))
       (push (class-properties symbol shallow) properties))
     ;; TODO
-    #+nil(when (symbol-type-p symbol)
+    #+nil(when (and (or (not type) (eql type 'cl:type))
+		    (symbol-type-p symbol))
            (push (type-properties symbol shallow) properties))
     properties))
 
