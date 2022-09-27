@@ -76,6 +76,8 @@ Returns a list of alists of properties, one alist for each type of definition th
     (when (and (or (not type) (eql type 'cl:macro-function))
 	       (symbol-macro-p symbol))
       (push (function-properties symbol shallow) properties))
+    (when (special-operator-p symbol)
+      (push (special-operator-properties symbol shallow) properties))
     (when (and (or (not type) (eql type 'cl:variable))
 	       (symbol-variable-p symbol))
       (push (variable-properties symbol shallow) properties))
