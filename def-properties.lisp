@@ -5,6 +5,7 @@
    :variable-properties
    :function-properties
    :macro-properties
+   :special-operator-properties
    :class-properties
    :type-properties
    :package-properties
@@ -211,6 +212,12 @@ not available is DATA."
         (cons :type :macro)
         (cons :source (macro-source-location symbol))))
 
+(defun special-operator-properties (symbol &optional shallow)
+  (declare (ignore shallow))
+  (list (cons :name symbol)
+        (cons :documentation (documentation symbol 'function))
+        (cons :package (symbol-package symbol))
+        (cons :type :special-operator)))
 
 (defun function-properties (symbol &optional shallow)
   (list (cons :name symbol)
