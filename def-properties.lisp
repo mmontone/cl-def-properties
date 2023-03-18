@@ -266,7 +266,7 @@ not available is DATA."
         (cons :type :variable)
         ;; TODO: fix me
         ;;(cons :source (swank/backend:find-source-location symbol))
-        (cons :source (variable-source-location symbol))
+        (cons :source (ignore-errors (variable-source-location symbol)))
         ))
 
 (defun find-superclasses (class)
